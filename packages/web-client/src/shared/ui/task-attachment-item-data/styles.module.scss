@@ -1,0 +1,44 @@
+.attachment-icon {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+
+    background: rgb(222 237 255 / 100%);
+    border-radius: 4px;
+
+    & > svg {
+        width: 20px;
+        height: 20px;
+
+        rect {
+            fill: transparent;
+        }
+
+        path {
+            fill: var(--accent-primary);
+        }
+    }
+}
+
+.file-name {
+    flex-shrink: 1;
+    width: 100%;
+    overflow: hidden;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.additional-icon {
+    display: none;
+    flex-shrink: 1;
+
+    visibility: hidden;
+}
+
+.button-wrapper {
+    position: unset;
+}

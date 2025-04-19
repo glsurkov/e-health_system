@@ -1,0 +1,10 @@
+{
+    "*.ts(x|)": [
+        "eslint --fix",
+        "bash -c \"tsc -b && vite build\"",
+        "prettier --write"
+    ],
+    "*.(s|)css": [
+        "stylelint --fix"
+    ]
+}

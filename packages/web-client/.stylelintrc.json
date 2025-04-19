@@ -1,0 +1,27 @@
+{
+    "extends": [
+        "stylelint-config-standard-scss",
+        "stylelint-config-rational-order",
+        "stylelint-config-standard"
+    ],
+    "ignoreFiles": ["**/node_modules/**", "**/dist/**"],
+    "plugins": ["stylelint-order"],
+    "rules": {
+        "declaration-empty-line-before": null,
+        "no-duplicate-selectors": null,
+        "no-descending-specificity": null,
+        "plugin/rational-order": [
+            true,
+            {
+                "empty-line-between-groups": true,
+                "border-in-box-model": false,
+                "severity": "warning"
+            }
+        ],
+        "color-no-hex": true,
+        "selector-class-pattern": null,
+        "value-no-vendor-prefix": null,
+        "scss/at-rule-no-unknown": true,
+        "at-rule-no-unknown": null
+    }
+}

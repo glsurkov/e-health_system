@@ -1,0 +1,82 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 52px;
+    height: 100dvh;
+    padding: 20px 0;
+
+    background-color: var(--accent-primary);
+
+    .buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+        align-items: center;
+    }
+
+    .logout {
+        svg {
+            path {
+                stroke: var(--white);
+            }
+        }
+    }
+
+    .buttons-bottom {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.title {
+    margin-bottom: 32px;
+
+    color: var(--black);
+    font: var(--font-h2);
+}
+
+.buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.btn {
+    gap: 6px;
+    width: 100%;
+    height: 40px;
+    padding: 10px 32px;
+
+    border-radius: 4px;
+}
+
+.exit-button {
+    background: var(--accent-primary);
+}
+
+.cancel-button {
+    color: var(--color-black);
+
+    background: var(--grey-80);
+
+    &:hover {
+        background: var(--grey-250);
+    }
+}
+
+.top-area-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+}
+
+.users-avatar {
+    position: relative;
+}

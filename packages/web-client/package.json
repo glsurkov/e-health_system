@@ -1,0 +1,113 @@
+{
+    "name": "web-client",
+    "private": true,
+    "version": "0.0.0",
+    "scripts": {
+        "dev": "vite",
+        "build": "tsc -b && vite build",
+        "format": "prettier --write \"**/*.ts(x|)\" --no-error-on-unmatched-pattern",
+        "lint": "eslint .",
+        "preview": "vite preview",
+        "pre-commit": "lint-staged",
+        "storybook": "storybook dev -p 6006",
+        "build-storybook": "storybook build",
+        "stylelint": "stylelint \"**/*.{css,scss}\" --fix",
+        "generate:api:dev": "npx @rtk-query/codegen-openapi openapi-config.dev.ts && prettier --write './src/shared/api/**/*.ts'",
+        "generate:api:local": "npx @rtk-query/codegen-openapi openapi-config.local.ts && prettier --write './src/shared/api/**/*.ts'"
+    },
+    "dependencies": {
+        "@floating-ui/react": "0.26.27",
+        "@hookform/resolvers": "3.9.0",
+        "@jridgewell/gen-mapping": "0.3.5",
+        "@reduxjs/toolkit": "2.2.7",
+        "@tanstack/react-table": "8.20.5",
+        "@tanstack/react-virtual": "^3.11.2",
+        "@types/jest": "29.5.13",
+        "clsx": "2.1.1",
+        "date-fns": "3.6.0",
+        "imask": "7.6.1",
+        "jest": "29.7.0",
+        "modern-normalize": "3.0.0",
+        "react": "18.3.1",
+        "react-dom": "18.3.1",
+        "react-hook-form": "7.52.2",
+        "react-hot-toast": "^2.5.1",
+        "react-imask": "7.6.1",
+        "react-redux": "9.1.2",
+        "react-router-dom": "6.26.1",
+        "react-textarea-autosize": "8.5.3",
+        "yup": "1.4.0"
+    },
+    "devDependencies": {
+        "@chromatic-com/storybook": "1.6.1",
+        "@eslint/compat": "1.2.5",
+        "@eslint/eslintrc": "3.2.0",
+        "@eslint/js": "9.9.0",
+        "@rtk-query/codegen-openapi": "2.0.0",
+        "@storybook/addon-essentials": "8.2.9",
+        "@storybook/addon-interactions": "8.2.9",
+        "@storybook/addon-links": "8.2.9",
+        "@storybook/addon-onboarding": "8.2.9",
+        "@storybook/blocks": "8.2.9",
+        "@storybook/react": "8.2.9",
+        "@storybook/react-vite": "8.2.9",
+        "@storybook/test": "8.2.9",
+        "@trivago/prettier-plugin-sort-imports": "4.3.0",
+        "@types/jest": "29.5.13",
+        "@types/react": "18.3.3",
+        "@types/react-dom": "18.3.0",
+        "@vitejs/plugin-react": "4.3.1",
+        "@vitejs/plugin-react-swc": "3.5.0",
+        "eslint": "9.9.0",
+        "eslint-plugin-fsd-import": "0.0.13",
+        "eslint-plugin-kisszaya-fsd-plugin": "0.0.25",
+        "eslint-plugin-react": "7.35.0",
+        "eslint-plugin-react-hooks": "5.1.0-rc.0",
+        "eslint-plugin-react-refresh": "0.4.9",
+        "eslint-plugin-storybook": "0.8.0",
+        "globals": "15.9.0",
+        "jest": "29.7.0",
+        "jest-environment-jsdom": "29.7.0",
+        "lint-staged": "15.2.9",
+        "postcss": "8.4.41",
+        "prettier": "3.3.3",
+        "sass-embedded": "1.77.8",
+        "storybook": "8.2.9",
+        "stylelint": "16.6.1",
+        "stylelint-config-rational-order": "0.1.2",
+        "stylelint-config-standard": "36.0.0",
+        "stylelint-config-standard-scss": "13.1.0",
+        "stylelint-order": "6.0.4",
+        "ts-jest": "29.1.0",
+        "typescript": "5.5.3",
+        "typescript-eslint": "8.0.1",
+        "vite": "6.0.5",
+        "vite-plugin-svgr": "4.2.0",
+        "vite-tsconfig-paths": "5.0.1"
+    },
+    "engines": {
+        "node": ">=22.6.0"
+    },
+    "eslintConfig": {
+        "extends": [
+            "plugin:storybook/recommended"
+        ]
+    },
+    "jest": {
+        "moduleFileExtensions": [
+            "js",
+            "json",
+            "ts"
+        ],
+        "rootDir": "src",
+        "testRegex": ".*\\.spec\\.ts$",
+        "transform": {
+            "^.+\\.(t|j)s$": "ts-jest"
+        },
+        "collectCoverageFrom": [
+            "**/*.(t|j)s"
+        ],
+        "coverageDirectory": "../coverage",
+        "testEnvironment": "jsdom"
+    }
+}

@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist",
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true
+    },
+    "extends": "../tsconfig.json",
+}

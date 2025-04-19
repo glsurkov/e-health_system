@@ -1,0 +1,99 @@
+.input-wrapper {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    width: 100%;
+    padding: 10px 16px;
+
+    color: var(--black);
+    font: var(--font-text);
+
+    background: var(--white);
+
+    border: 1px solid var(--grey-80);
+    border-radius: 4px;
+
+    &:has(.input:hover) {
+        border: 1px solid var(--grey-85);
+    }
+
+    &:not(.disabled) {
+        &:has(.input:focus),
+        &:has(.input:focus-visible) {
+            border: var(--border-focused);
+        }
+
+        &.isError {
+            border: 2px solid var(--red);
+
+            &:has(.input:hover),
+            &:has(.input:focus),
+            &:has(.input:focus-visible) {
+                border: 2px solid var(--red);
+            }
+        }
+    }
+
+    &:has(.input:disabled) {
+        background-color: var(--grey-20);
+    }
+}
+
+.input {
+    width: 100%;
+    height: 100%;
+
+    color: inherit;
+    font: inherit;
+    text-overflow: ellipsis;
+
+    background: inherit;
+
+    border: none;
+    outline: none;
+
+    resize: none;
+
+    &::placeholder {
+        color: var(--grey-250);
+    }
+
+    &:disabled {
+        background: inherit;
+    }
+}
+
+.title {
+    position: absolute;
+    top: 0;
+    left: var(--title-offset);
+
+    max-width: calc(100% - var(--title-offset) * 2);
+
+    padding: 1px 4px;
+    overflow: hidden;
+
+    color: var(--grey-250);
+
+    font: var(--font-text-small);
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    background-color: inherit;
+    border-radius: inherit;
+    transform: translate(0, -50%);
+}
+
+.container {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    background: var(--white);
+    border-radius: 4px;
+
+    --title-offset: 18px;
+}

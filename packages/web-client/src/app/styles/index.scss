@@ -1,0 +1,76 @@
+@import url('./reset.scss');
+
+:root {
+    --accent-primary: rgb(17 83 198 / 100%);
+    --accent-primary-hover: rgb(17 83 198 / 5%);
+    --accent-secondary: rgb(236 244 251 / 100%);
+    --white: rgb(255 255 255 / 100%);
+    --black: rgb(17 18 24 / 100%);
+    --red: rgb(231 57 43 / 100%);
+    --grey-600: rgb(102 102 102 / 100%);
+    --grey-250: rgb(191 191 191 / 100%);
+    --grey-80: rgb(235 235 235 / 100%);
+    --grey-50: rgb(242 242 242 / 100%);
+    --grey-025: rgb(0 0 0 / 25%);
+    --grey-100: rgb(229 229 229 / 100%);
+    --grey-400: rgb(153 153 153 / 100%);
+    --beige: rgb(255 214 152 / 100%);
+    --green: rgb(200 245 143 / 100%);
+    --blue: rgb(203 233 243 / 100%);
+    --pink: rgb(255 203 203 / 100%);
+    --bright-green: rgb(62 111 0 / 100%);
+    --bright-blue: rgb(0 105 139 / 100%);
+    --bright-beige: rgb(139 83 0 / 100%);
+    --text-green: rgb(78 194 24 / 100%);
+    --micro-shadow: 0 2px 6px 0 rgb(0 0 0 / 5%);
+
+    // Warn: Doesn't exist in figma
+    --white-10: rgb(255 255 255 / 10%);
+    --grey-85: rgb(215 215 215 / 100%);
+    --grey-20: rgb(250 250 250 / 100%);
+    --font-family-main: 'Golos Text', 'Roboto', sans-serif;
+    --font-text: 400 14px/16px var(--font-family-main);
+    --font-text-bold: 600 16px/18px var(--font-family-main);
+    --font-h1: 600 28px/32px var(--font-family-main);
+    --font-h2: 600 20px/24px var(--font-family-main);
+    --font-h3: 600 18px/22px var(--font-family-main);
+    --font-text-small: 400 12px/14px var(--font-family-main);
+    --font-text-medium: 400 16px/18px var(--font-family-main);
+    --font-text-big: 400 18px/20px var(--font-family-main);
+    --border-thin: 1px solid rgb(235 235 235 / 100%);
+    --border-focused: 2px solid rgb(17 83 198 / 100%);
+
+    // Z-indexes
+    --overlay-index: 1000;
+    --dropdown-index: 10;
+    --modal-root-index: 9999;
+
+    // Sizes
+    --page-header-height: 86px;
+
+}
+
+.scroll-styled {
+    &::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: var(--grey-100);
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: var(--grey-100);
+    }
+
+    &::-webkit-scrollbar-button {
+        display: none;
+
+        background: var(--grey-100);
+    }
+}

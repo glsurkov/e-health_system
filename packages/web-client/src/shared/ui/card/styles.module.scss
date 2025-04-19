@@ -1,0 +1,21 @@
+.card {
+    background-color: var(--grey-20);
+    border: 1px solid var(--grey-80);
+    border-radius: 4px;
+
+    &.padding-none {
+        padding: 0;
+    }
+
+    &.padding-small {
+        padding: 20px;
+    }
+
+    &.padding-large {
+        padding: 60px;
+    }
+
+    &.padding-medium {
+        padding: 40px;
+    }
+}

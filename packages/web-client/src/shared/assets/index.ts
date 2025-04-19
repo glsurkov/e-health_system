@@ -1,0 +1,11 @@
+export { default as IconLogo } from './icon-logo.svg?react';
+export { default as IconClose } from './close.svg?react';
+export { default as IconLogout } from './logout.svg?react';
+export { default as IconMedicalCard } from './medical-card.svg?react';
+export { default as IconPermissions } from './permissions.svg?react';
+export { default as IconUserAvatarPlaceholder } from './avatar-placeholder.svg?react';
+export { default as IconMore } from './more.svg?react';
+export { default as IconPaperclip } from './paperclip.svg?react';
+export { default as IconFlagged } from './flagged.svg?react';
+export { default as IconDownload } from './download.svg?react';
+export { default as IconTripleDot } from './triple-dot.svg?react';

@@ -1,0 +1,32 @@
+{
+  "name": "vkr",
+  "version": "1.0.0",
+  "description": "",
+  "workspaces": {
+    "packages": [
+      "packages/web-client",
+      "packages/fabric-chaincode",
+      "packages/server"
+    ]
+  },
+  "scripts": {
+    "pre-commit": "yarn workspaces -A run pre-commit",
+    "prepare": "husky",
+    "start:docker": "docker-compose --compatibility -p dpm -f deploy/local/docker-compose.yml up --force-recreate --build -d --renew-anon-volumes",
+    "postgen:proto": "yarn build",
+    "gen:client:local": "yarn workspace web-client run generate:api:local",
+    "gen:client:dev": "yarn workspace web-client run generate:api:dev",
+    "lint": "yarn workspaces -A run lint",
+    "format": "yarn workspaces -A run format",
+    "storybook": "yarn workspace web-client run storybook",
+    "start:client": "yarn workspace web-client dev",
+    "start:client:local": "set API_URL=http://localhost:3001 && yarn workspace web-client dev",
+    "build": "yarn workspaces -A run build"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "husky": "^9.1.4",
+    "ts-proto": "^2.2.5"
+  },
+  "private": true
+}

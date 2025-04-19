@@ -1,0 +1,93 @@
+.typography {
+    /* Colors */
+
+    &.color-black {
+        color: var(--black);
+    }
+
+    &.color-grey {
+        color: var(--grey-600);
+    }
+
+    &.color-light-grey {
+        color: var(--grey-025);
+    }
+
+    &.color-grey-600 {
+        color: var(--grey-600);
+    }
+
+    &.color-grey-400 {
+        color: var(--grey-400);
+    }
+
+    &.color-accent {
+        color: var(--accent-primary);
+    }
+
+    &.color-error {
+        color: var(--red);
+    }
+
+    &.color-white {
+        color: var(--white);
+    }
+
+    &.color-green {
+        color: var(--text-green);
+    }
+
+    /* Variants */
+
+    &.variant-small {
+        font: var(--font-text-small);
+    }
+
+    &.variant-medium {
+        font: var(--font-text-medium);
+    }
+
+    &.variant-big {
+        font: var(--font-text-big);
+    }
+
+    &.variant-text {
+        font: var(--font-text);
+    }
+
+    &.variant-h1 {
+        font: var(--font-h1);
+    }
+
+    &.variant-h2 {
+        font: var(--font-h2);
+    }
+
+    &.variant-h3 {
+        font: var(--font-h3);
+    }
+
+    /* Weight */
+
+    &.weight-bold {
+        font-weight: 600;
+    }
+
+    &.weight-normal {
+        font-weight: 400;
+    }
+
+    /* Align */
+
+    &.align-center {
+        text-align: center;
+    }
+
+    &.align-left {
+        text-align: left;
+    }
+
+    &.align-right {
+        text-align: right;
+    }
+}

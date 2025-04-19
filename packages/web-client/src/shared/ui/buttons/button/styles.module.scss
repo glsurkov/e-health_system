@@ -1,0 +1,103 @@
+.button {
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Sizes */
+
+.size-large {
+    height: 48px;
+    padding: 10px 32px;
+}
+
+.size-medium {
+    height: 38px;
+    padding: 10px 32px;
+}
+
+.size-mini {
+    height: unset;
+    padding: 0;
+}
+
+.size-light {
+    padding: 6px 16px;
+}
+
+/* Colors */
+
+.color-primary {
+    color: var(--white);
+
+    background: var(--accent-primary);
+
+    &.disabled {
+        color: var(--grey-100);
+
+        background-color: var(--grey-250);
+    }
+}
+
+.color-secondary {
+    color: var(--black);
+
+    background: var(--grey-80);
+
+    &.disabled {
+        color: var(--grey-250);
+
+        background-color: var(--grey-50);
+    }
+}
+
+.color-light {
+    color: var(--black);
+
+    background: var(--white);
+
+    &.disabled {
+        color: var(--grey-250);
+    }
+}
+
+.color-none {
+    background: transparent;
+
+    &.disabled {
+        color: var(--grey-250);
+    }
+}
+
+/* Variants */
+
+.variant-clear {
+    border: none;
+}
+
+.variant-filled {
+    font: var(--font-text);
+
+    border: none;
+
+    &:hover {
+        cursor: pointer;
+        opacity: 0.8;
+    }
+}
+
+.variant-light {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    justify-content: center;
+
+    font: var(--font-text);
+
+    border: var(--border-thin);
+}
+
+/* States */
+
+.button.disabled {
+    cursor: not-allowed;
+}

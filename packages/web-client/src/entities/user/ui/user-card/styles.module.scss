@@ -1,0 +1,18 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--white);
+    border-radius: 5px 5px 0 0;
+    flex: 1;
+    padding: 20px 20px 0;
+    box-shadow: var(--micro-shadow);
+    border: 1px solid var(--grey-80);
+    gap: 40px;
+}
+
+.top-side-information {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 50px;
+}

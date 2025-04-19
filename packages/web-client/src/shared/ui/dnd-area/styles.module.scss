@@ -1,0 +1,22 @@
+.dnd-area {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    width: 330px;
+    margin-top: 20px;
+    padding: 18px;
+
+    border: 1px dashed var(--accent-primary);
+    border-radius: 4px;
+
+    .file-button,
+    .or-text {
+        display: inline-block;
+    }
+
+    &.is-error {
+        border-color: var(--red);
+    }
+}
