@@ -1,7 +1,18 @@
 {
+    "$schema": "https://json.schemastore.org/tsconfig",
+    "extends": "@tsconfig/node18/tsconfig.json",
     "compilerOptions": {
-        "outDir": "./dist",
-        "resolveJsonModule": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "declaration": true,
+        "declarationMap": true,
+        "sourceMap": true,
+        "outDir": "dist",
+        "strict": true,
+        "noUnusedLocals": true,
+        "noImplicitReturns": true,
+        "forceConsistentCasingInFileNames": true,
+        "types": []
     },
-    "extends": "../tsconfig.json",
+    "include": ["src/"]
 }

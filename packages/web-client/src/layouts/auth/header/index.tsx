@@ -1,5 +1,5 @@
 import styles from './styles.module.scss';
-import {IconLogo, IconLogout, IconMedicalCard, IconPermissions} from "@/shared/assets";
+import { IconAddUser, IconLogo, IconLogout, IconMedicalCard, IconPermissions } from '@/shared/assets';
 import {ModalWrapper} from "@/shared/ui/modals/modal-wrapper";
 import {Button} from "@/shared/ui";
 import {useToggle} from "@/shared/lib/common/useToggle.ts";
@@ -7,6 +7,8 @@ import clsx from "clsx";
 import {useMemo} from "react";
 import {TabButton} from "@/layouts/auth/tab-button";
 import {useLocation, useNavigate} from "react-router-dom";
+import { useAppSelector } from '@/shared/lib';
+import { UserRoles } from '@/shared/consts/roles.ts';
 
 type RoutePaths = Array<{
     Icon: React.FC;
@@ -19,6 +21,7 @@ type RoutePaths = Array<{
 }>;
 
 export const AuthHeader = () => {
+    const role = useAppSelector(state => state.auth.role);
     const navigate = useNavigate();
     const { pathname } = useLocation();
     const {
@@ -30,6 +33,13 @@ export const AuthHeader = () => {
     const paths: RoutePaths = useMemo(
         () =>
             [
+                role === UserRoles.Admin
+                    ? {
+                        Icon: IconAddUser,
+                        path: '/register',
+                        name: 'Регистрация новых пользователей',
+                    }
+                    : null,
                 {
 
                     Icon: IconMedicalCard,
@@ -38,7 +48,7 @@ export const AuthHeader = () => {
                 },
                 {
                     Icon: IconPermissions,
-                    path: '/permissions/me',
+                    path: '/permissions.ts/me',
                     name: 'Список разрешений',
                 },
             ].filter((route) => route !== null),

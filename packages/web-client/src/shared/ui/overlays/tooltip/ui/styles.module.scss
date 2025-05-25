@@ -1,0 +1,15 @@
+.tooltip-content {
+    pointer-events: none;
+
+    box-sizing: border-box;
+    width: max-content;
+    max-width: 400px;
+    padding: 4px 8px;
+    border-radius: 4px;
+
+    font: var(--text-small);
+    color: var(--text-primary-color);
+
+    background: var(--surface-popup-color);
+    box-shadow: 0 12px 16px 0 #53535814;
+}

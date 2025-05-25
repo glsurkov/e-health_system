@@ -2,7 +2,7 @@ import type { LOCAL_STORAGE_KEYS } from './local-storage-keys';
 
 /**
  * @description Type of value to set in localStorage key
- * @usage When add new localStorage key, register localStorage value type here
+ * @usage When add new localStorage key, enroll localStorage value type here
  */
 interface ISetLocalStorageTypes {
     [LOCAL_STORAGE_KEYS.REFRESH_TOKEN]: string;

@@ -1,0 +1,23 @@
+caliper:
+    blockchain: fabric
+
+version: 2.0.0
+
+fabric:
+    networkConfig: ./connection-org1.json
+    channel: mychannel
+    chaincode:
+        id: medicalrecord
+        version: 1.0
+        language: node
+        contract: MedicalRecordContract
+
+    identities:
+        - label: appUser
+          org: Org1
+          mspId: Org1MSP
+          credentials:
+              certificate: |
+                  -----BEGIN CERTIFICATE-----\nMIICrjCCAlSgAwIBAgIUbByoKKCp8X4AvO7e5EZU5FKS28UwCgYIKoZIzj0EAwIw\ncDELMAkGA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9saW5hMQ8wDQYDVQQH\nEwZEdXJoYW0xGTAXBgNVBAoTEG9yZzEuZXhhbXBsZS5jb20xHDAaBgNVBAMTE2Nh\nLm9yZzEuZXhhbXBsZS5jb20wHhcNMjUwNTA5MTE1ODAwWhcNMjYwNTA5MTIwMzAw\nWjBdMQswCQYDVQQGEwJVUzEXMBUGA1UECBMOTm9ydGggQ2Fyb2xpbmExFDASBgNV\nBAoTC0h5cGVybGVkZ2VyMQ8wDQYDVQQLEwZjbGllbnQxDjAMBgNVBAMTBXVzZXIx\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE7cSmKbXhojDUWcaVNJG6RS0V8Nur\nYiljgdu3Ffs0wf4z55k2wYGLIJkPzo/E0TAxF5iTChJL0yXlsm8aSEbhmaOB3jCB\n2zAOBgNVHQ8BAf8EBAMCB4AwDAYDVR0TAQH/BAIwADAdBgNVHQ4EFgQUtLqVwag4\n5suLyEwRui9nDVGlis8wHwYDVR0jBBgwFoAUaVuQ6iQ77JnfUCDKd+I88KRuz94w\nIQYDVR0RBBowGIIWTWFjQm9vay1BaXItR2xlYi5sb2NhbDBYBggqAwQFBgcIAQRM\neyJhdHRycyI6eyJoZi5BZmZpbGlhdGlvbiI6IiIsImhmLkVucm9sbG1lbnRJRCI6\nInVzZXIxIiwiaGYuVHlwZSI6ImNsaWVudCJ9fTAKBggqhkjOPQQDAgNIADBFAiEA\nrIkNVZDLnNGyNcHw6tJKRGbAC+8k6qKJCYzfFB4HFXICIF5KmLTYVaLobYkZkVqk\n7G+r5khze8FTMKvCs0NLsSeS\n-----END CERTIFICATE-----
+              privateKey: |
+                  -----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgIfpET2WS4yklAFHb\nJjHZD/Xffw+MQOJMx8Wpj3InCB+hRANCAATtxKYpteGiMNRZxpU0kbpFLRXw26ti\nKWOB27cV+zTB/jPnmTbBgYsgmQ/Oj8TRMDEXmJMKEkvTJeWybxpIRuGZ\n-----END PRIVATE KEY-----

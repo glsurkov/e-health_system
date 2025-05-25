@@ -1,18 +1,27 @@
 import {AuthLayout} from "@/layouts";
 import styles from "./styles.module.scss";
-import {TextAreaInput, Typography} from "@/shared/ui";
+import { GenericPageLoader, TextAreaInput, Typography } from '@/shared/ui';
 import {UserCardDocumentsList} from "@/entities";
 import {useParams} from "react-router-dom";
+import { useRecordsControllerGetRecordQuery } from '@/shared/api/rest/records.ts';
 
 export default function NotePage() {
     const { noteId } = useParams();
+    const { data: record, isLoading } = useRecordsControllerGetRecordQuery({
+        id: noteId ?? '',
+    });
+
+
+    if (isLoading) {
+        return <GenericPageLoader/>
+    }
 
     return (
         <AuthLayout className={styles.container}>
             <Typography
                 variant="h1"
             >
-                Запись {noteId}
+                Запись {record?.id}
             </Typography>
             <div className={styles.main}>
                 <div className={styles.mainInformation}>
@@ -31,7 +40,7 @@ export default function NotePage() {
                                 <Typography
                                     variant="medium"
                                 >
-                                    Dr Mundo
+                                    {record?.recordAuthor.fullname}
                                 </Typography>
                             </div>
                             <div className={styles.mainInformationRow}>
@@ -42,7 +51,7 @@ export default function NotePage() {
                                     Должность:
                                 </Typography>
                                 <Typography variant="medium">
-                                    Doctor
+                                    {record?.recordAuthor.position}
                                 </Typography>
                             </div>
                             <div className={styles.mainInformationRow}>
@@ -53,7 +62,7 @@ export default function NotePage() {
                                     Организация:
                                 </Typography>
                                 <Typography variant="medium">
-                                    WSH National Hospital
+                                    {record?.recordAuthor.organization}
                                 </Typography>
                             </div>
                             <div className={styles.mainInformationRow}>
@@ -64,7 +73,7 @@ export default function NotePage() {
                                     Email:
                                 </Typography>
                                 <Typography variant="medium">
-                                    drmundo@gmail.com
+                                    {record?.recordAuthor.email}
                                 </Typography>
                             </div>
                         </div>
@@ -73,7 +82,7 @@ export default function NotePage() {
                         <Typography variant="h2">
                             Описание
                         </Typography>
-                        <TextAreaInput className={styles.descriptionArea}/>
+                        <TextAreaInput value={record?.data} className={styles.descriptionArea}/>
                     </div>
                 </div>
                 <UserCardDocumentsList/>

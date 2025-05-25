@@ -1,0 +1,15 @@
+test:
+    name: MedicalRecord Benchmark
+    description: Тест производительности метода CreateRecord
+    workers:
+        number: 2
+    rounds:
+        - label: create-record
+          description: Замер TPS и задержек для CreateRecord
+          txDuration: 60
+          rateControl:
+              type: fixed-rate
+              opts:
+                  tps: 10
+          workload:
+              module: ./workloads/createRecord.js

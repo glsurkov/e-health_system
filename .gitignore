@@ -1,8 +1,11 @@
+.idea
 .idea/*
 .DS_Store
 
 /tmp
 /out-tsc
+bin
+builders
 
 node_modules
 **/*/node_modules

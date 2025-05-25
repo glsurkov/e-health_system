@@ -1,63 +1,124 @@
-import bodyParser from 'body-parser';
-import cors from 'cors';
-import express from 'express';
-import { Gateway, Wallets } from 'fabric-network';
-import * as fs from 'fs';
-import * as path from 'path';
+/*
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * This is the main entrypoint for the sample REST server, which is responsible
+ * for connecting to the Fabric network and setting up a job queue for
+ * processing submit transactions
+ */
 
-const app = express();
-app.use(cors());
-app.use(bodyParser.json());
+import * as config from './api/config/config';
+import {
+    createGateway,
+    createWallet,
+    getContracts,
+    getNetwork,
+} from './external-services/fabric/fabric';
+import {
+    initJobQueue,
+    initJobQueueScheduler,
+    initJobQueueWorker,
+} from './external-services/fabric/jobs';
+import { logger } from './lib/logger/logger';
+import { createServer } from './server';
+import { isMaxmemoryPolicyNoeviction } from './external-services/redis/redis';
+import { Queue, QueueScheduler, Worker } from 'bullmq';
+import { buildCAClient } from './api/services/fabric';
+import FabricCAServices from 'fabric-ca-client';
+import { X509Identity } from 'fabric-network';
 
-const ccpPath = path.resolve(__dirname, '..', 'connection-profile.json');
-const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
+let jobQueue: Queue | undefined;
+let jobQueueWorker: Worker | undefined;
+let jobQueueScheduler: QueueScheduler | undefined;
 
-async function getContract() {
-    const walletPath = path.join(__dirname, 'wallet');
-    const wallet = await Wallets.newFileSystemWallet(walletPath);
+async function main() {
+    logger.info('Checking Redis config');
+    if (!(await isMaxmemoryPolicyNoeviction())) {
+        throw new Error(
+            'Invalid redis configuration: redis instance must have the setting maxmemory-policy=noeviction'
+        );
+    }
 
-    const gateway = new Gateway();
-    await gateway.connect(ccp, {
-        wallet,
-        identity: 'appUser',
-        discovery: { enabled: true, asLocalhost: true },
+    logger.info('Creating REST server');
+    const app = await createServer();
+
+    logger.info('Connecting to Fabric network with org1 mspid');
+    const wallet = await createWallet();
+
+    const caClient = buildCAClient(
+        FabricCAServices,
+        config.connectionProfileOrg1,
+        'ca.org1.example.com',
+    );
+    const enrollment = await caClient.enroll({
+        enrollmentID: 'admin',
+        enrollmentSecret: 'adminpw',
     });
 
-    const network = await gateway.getNetwork('mychannel');
-    return network.getContract('medchain');
+    const x509Admin: X509Identity = {
+        credentials: {
+            certificate: enrollment.certificate,
+            privateKey: enrollment.key.toBytes(),
+        },
+        mspId: config.mspIdOrg1,
+        type: 'X.509',
+    };
+
+    await wallet.put('bootstrapAdmin', x509Admin);
+
+    const gatewayOrg1 = await createGateway(
+        config.connectionProfileOrg1,
+        config.mspIdOrg1,
+        wallet
+    );
+    const networkOrg1 = await getNetwork(gatewayOrg1);
+    const contractsOrg1 = await getContracts(networkOrg1);
+
+    app.locals[config.mspIdOrg1] = contractsOrg1;
+
+    logger.info('Connecting to Fabric network with org2 mspid');
+    const gatewayOrg2 = await createGateway(
+        config.connectionProfileOrg2,
+        config.mspIdOrg2,
+        wallet,
+    );
+    const networkOrg2 = await getNetwork(gatewayOrg2);
+    const contractsOrg2 = await getContracts(networkOrg2);
+
+    app.locals[config.mspIdOrg2] = contractsOrg2;
+
+    logger.info('Initialising submit job queue');
+    jobQueue = initJobQueue();
+    jobQueueWorker = initJobQueueWorker(app);
+    if (config.submitJobQueueScheduler === true) {
+        logger.info('Initialising submit job queue scheduler');
+        jobQueueScheduler = initJobQueueScheduler();
+    }
+    app.locals.jobq = jobQueue;
+    app.locals.wallet = wallet;
+    app.locals.ca = caClient;
+    app.locals.gateways = [gatewayOrg1, gatewayOrg2];
+
+    logger.info('Starting REST server');
+    app.listen(config.port, () => {
+        logger.info('REST server started on port: %d', config.port);
+    });
 }
 
-app.post('/api/record', async (req, res) => {
-    const { recordId, hash, patientHash, initiator, timestamp } = req.body;
-    try {
-        const contract = await getContract();
-        await contract.submitTransaction(
-            'AddRecord',
-            recordId,
-            hash,
-            patientHash,
-            initiator,
-            timestamp,
-        );
-        res.status(200).json({ message: 'Record added to blockchain' });
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-});
+main().catch(async (err) => {
+    logger.error({ err }, 'Unxepected error');
 
-app.get('/api/record/:id', async (req, res) => {
-    try {
-        const contract = await getContract();
-        const result = await contract.evaluateTransaction(
-            'GetRecord',
-            req.params.id,
-        );
-        res.status(200).json(JSON.parse(result.toString()));
-    } catch (err) {
-        res.status(500).json({ error: err.message });
+    if (jobQueueScheduler != undefined) {
+        logger.debug('Closing job queue scheduler');
+        await jobQueueScheduler.close();
     }
-});
 
-app.listen(3000, () => {
-    console.log('Server running on port 3000');
+    if (jobQueueWorker != undefined) {
+        logger.debug('Closing job queue worker');
+        await jobQueueWorker.close();
+    }
+
+    if (jobQueue != undefined) {
+        logger.debug('Closing job queue');
+        await jobQueue.close();
+    }
 });

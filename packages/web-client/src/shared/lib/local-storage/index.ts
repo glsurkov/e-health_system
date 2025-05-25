@@ -1,3 +1,2 @@
-export { getFromLocalStorage } from './get-from-local-storage';
-export { clearInLocalStorage } from './clear-in-local-storage';
-export { setInLocalStorage } from './set-in-local-storage';
+export { createLocalStorage } from './local-storage/create-local-storage.ts';
+export { useLocalStorage } from './local-storage/use-local-storage.ts';

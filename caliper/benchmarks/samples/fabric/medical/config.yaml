@@ -1,0 +1,72 @@
+test:
+  workers:
+    number: 5
+
+  rounds:
+#    - label: Create records
+#      txDuration: 60
+#      rateControl:
+#        type: fixed-load
+#        opts:
+#          transactionLoad: 2500
+#      workload:
+#        module: benchmarks/samples/fabric/medical/createRecord.js
+#
+#    - label: Get record
+#      txDuration: 60
+##      txNumber: 10
+#      rateControl:
+#        type: fixed-load
+#        opts:
+#          transactionLoad: 1500
+#      workload:
+#        module: benchmarks/samples/fabric/medical/getRecord.js
+#
+#    - label: Get records
+#      txDuration: 60
+#      rateControl:
+#        type: fixed-load
+#        opts:
+#          transactionLoad: 15
+#      workload:
+#        module: benchmarks/samples/fabric/medical/getAccessibleRecords.js
+#
+#    - label: Request access
+#      txDuration: 60
+#      #      txNumber: 10
+#      rateControl:
+#        type: fixed-load
+#        opts:
+#          transactionLoad: 100
+#      workload:
+#        module: benchmarks/samples/fabric/medical/requestAccess.js
+#
+#    - label: Grant access
+#      txDuration: 60
+##      txNumber: 10
+#      rateControl:
+#        type: fixed-load
+#        opts:
+#          transactionLoad: 50
+#      workload:
+#        module: benchmarks/samples/fabric/medical/grantAccess.js
+#
+    - label: Get all accesses
+      txDuration: 60
+        #      txNumber: 10
+      rateControl:
+        type: fixed-load
+        opts:
+          transactionLoad: 200
+      workload:
+        module: benchmarks/samples/fabric/medical/getAllAccessRequests.js
+#
+#    - label: Update record
+#      txDuration: 60
+##      txNumber: 10
+#      rateControl:
+#        type: fixed-load
+#        opts:
+#          transactionLoad: 2000
+#      workload:
+#        module: benchmarks/samples/fabric/medical/updateRecord.js

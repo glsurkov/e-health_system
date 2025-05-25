@@ -3,6 +3,8 @@ import {Button, Typography} from "@/shared/ui";
 import {format} from 'date-fns';
 import clsx from "clsx";
 import {PermissionStatus} from "../../types/status.ts";
+import { useCallback } from 'react';
+import { useRecordsControllerAccessGrantMutation } from '@/shared/api/rest/records.ts';
 
 export interface IPermission {
     id: string;
@@ -17,8 +19,18 @@ interface PermissionsListItemProps {
 }
 
 export const PermissionsListItem = (props: PermissionsListItemProps) => {
+    const [handleGrant, {isLoading}] = useRecordsControllerAccessGrantMutation();
     const {data} = props;
-    const {fullname, position, date, status = 'active'} = data;
+    const {fullname, position, date, status = 'pending', id} = data;
+
+    const handleRequest = useCallback((isAccepted: boolean) => {
+        handleGrant({
+            isAccepted,
+            requestId: id,
+            callerId: 'patient1',
+        })
+    }, []);
+
     return (
         <div className={clsx(styles.container, styles[status])}>
             <div className={styles.infoContainer}>
@@ -33,15 +45,19 @@ export const PermissionsListItem = (props: PermissionsListItemProps) => {
                 </Typography>
             </div>
             {
-                status === 'active'
+                status === 'pending'
                     ? (
                         <div className={styles.buttonsContainer}>
                             <Button
+                                onClick={() => handleRequest(true)}
+                                disabled={isLoading}
                                 colors="primary"
                             >
                                 Подтвердить
                             </Button>
                             <Button
+                                onClick={() => handleRequest(false)}
+                                disabled={isLoading}
                                 colors="secondary"
                             >
                                 Отклонить
@@ -50,8 +66,8 @@ export const PermissionsListItem = (props: PermissionsListItemProps) => {
                     )
                     : (
                         <div className={styles.statusContainer}>
-                            {status === 'declined' && (
-                                <div className={styles.declinedIdentifier}>
+                            {status === 'rejected' && (
+                                <div className={styles.rejectedIdentifier}>
                                     <Typography color="white">
                                         Отклонено
                                     </Typography>

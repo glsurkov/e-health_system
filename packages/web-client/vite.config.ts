@@ -11,7 +11,7 @@ const MODE = {
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, process.cwd(), '');
 
-    const api = env.API_URL ?? 'https://dpm.dev-mips.ru/';
+    const api = env.API_URL ?? 'http://localhost:3000';
 
     const generateScopedName =
         mode === MODE.DEV

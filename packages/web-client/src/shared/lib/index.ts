@@ -1,5 +1,7 @@
 export {formatDate} from './date/formatDate.ts';
-export {clearInLocalStorage, getFromLocalStorage, setInLocalStorage} from './local-storage';
+export {createLocalStorage, useLocalStorage} from './local-storage';
 export {useOutsideClick} from './common/useOutsideClick.ts';
 export {useToggle} from './common/useToggle.ts';
 export {useFileUpload} from './common/useFileUpload.tsx';
+export {useAppSelector} from './redux/use-app-selector.ts';
+export {useAppDispatch} from './redux/use-app-dispatch.ts';

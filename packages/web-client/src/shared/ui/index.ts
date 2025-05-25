@@ -9,6 +9,8 @@ export { ModalRoot } from './modals/modal-root';
 export { UserAvatar } from './user-avatar';
 export { TextAreaInput } from './inputs/text-area';
 export { TextInput } from './inputs/text-input';
+export { InputDropdownList } from './inputs/input-dropdown-list';
+export { Select } from './select';
 export { GenericPlaceholder } from './placeholders/generic-placeholder';
 export { ExpandableCard } from './expandable-card';
 export { DndArea } from './dnd-area';

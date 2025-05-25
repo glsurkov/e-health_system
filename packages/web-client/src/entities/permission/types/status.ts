@@ -1,1 +1,1 @@
-export type PermissionStatus = 'active' | 'accepted' | 'declined';
+export type PermissionStatus = 'pending' | 'accepted' | 'rejected';

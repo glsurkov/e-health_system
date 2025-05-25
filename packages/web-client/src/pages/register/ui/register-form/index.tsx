@@ -1,64 +1,115 @@
-import {Button, DndArea, Typography} from "@/shared/ui";
-import {useCallback} from "react";
-import {useFileUpload} from "@/shared/lib";
-import styles from './styles.module.scss';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+
+import { UserRoles } from '@/shared/consts/roles.ts';
 import {
-    ALLOWED_FILE_TYPES,
-    FILE_LIMIT,
-    MAX_FILE_SIZE,
-    MIN_FILE_SIZE
-} from "@/shared/consts/defaultUploadRestrictions.ts";
-import {TaskAttachmentItemData} from '@/shared/ui';
+    Button,
+    TextInput,
+    Typography,
+} from '@/shared/ui';
+import { Select } from '@/shared/ui/select';
+
+import styles from './styles.module.scss';
+import { useAuthControllerRegisterMutation } from '@/shared/api/rest/auth.ts';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { schema } from '@/pages/register/ui/register-form/validation-schema.ts';
+import toast from 'react-hot-toast';
+import { useAppSelector } from '@/shared/lib';
+
+type RegisterForm = {
+    userId: string;
+    role: string;
+}
+
+const defaultValues: RegisterForm = {
+    userId: '',
+    role: UserRoles.Admin,
+}
 
 export const RegisterForm = () => {
-    const { fileInput, handleDrop, fileInputRef, files, isError, clearFiles } =
-        useFileUpload({
-            multi: false,
-            fileLimit: FILE_LIMIT,
-            maxFileSize: MAX_FILE_SIZE,
-            minFileSize: MIN_FILE_SIZE,
-            allowedFileTypes: ALLOWED_FILE_TYPES,
-        });
+    const certificate = useAppSelector(state => state.auth.certificate)
+    const [selectedRole, setSelectedRole] = useState(UserRoles.Admin);
 
-    const handleOpenFileSelect = useCallback(() => {
-        if (fileInputRef.current) {
-            fileInputRef.current.value = '';
-            fileInputRef.current.click();
+    const rolesData = useMemo(() => {
+        return [
+            {
+                label: UserRoles.Admin,
+                value: UserRoles.Admin,
+            },
+            {
+                label: UserRoles.Doctor,
+                value: UserRoles.Doctor,
+            },
+            {
+                label: UserRoles.Patient,
+                value: UserRoles.Patient,
+            },
+        ];
+    }, []);
+
+    const {
+        register,
+        handleSubmit,
+    } = useForm<RegisterForm>({
+        resolver: yupResolver(schema),
+        defaultValues,
+    })
+
+    const [handleRegister, { isLoading, isSuccess, error}] = useAuthControllerRegisterMutation();
+
+    const handleRolesOption = useCallback(
+        (option: string) => {
+            setSelectedRole(option);
+        },
+        [rolesData],
+    );
+
+    const onSubmit = useCallback((data: RegisterForm) => {
+        handleRegister({
+            userId: data.userId,
+            role: selectedRole as string,
+            affiliation: 'org1.department1',
+            adminCertificate: selectedRole !== UserRoles.Admin && certificate
+                ? certificate
+                : undefined,
+        });
+    }, [selectedRole, certificate]);
+
+    useEffect(() => {
+        if (isSuccess) {
+            toast.success('Successfully registered new User');
         }
-    }, [fileInputRef.current]);
+    }, [isSuccess]);
+
+    useEffect(() => {
+        if (error) {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
+            toast.error(error.status);
+        }
+    }, [error]);
 
     return (
-        <div className={styles.container}>
-            <Typography
-                variant="h2"
-                weight="bold"
-            >
-                Прикрепите файл для активации ключа
-            </Typography>
-            {fileInput}
-            {files.length > 0 && (
-                <TaskAttachmentItemData
-                    fileName={files[0].name}
-                    className={styles.attachement}
-                    itemAction="remove"
-                    additionalIconClassName={styles.removeIcon}
-                    onClick={clearFiles}
-                    flagged={false}
-                />
-            )}
-            {files.length === 0 && (
-                <DndArea
-                    onDrop={handleDrop}
-                    isError={isError}
-                    openFileSelect={handleOpenFileSelect}
-                    className={styles.dnd}
-                />
-            )}
+        <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
+            <Typography>ID Пользователя</Typography>
+            <TextInput
+                {...register('userId')}
+            />
+            <Typography>Роль пользователя</Typography>
+            <Select
+                {...register('role')}
+                labelColor="gray"
+                selectedValue={selectedRole}
+                data={rolesData}
+                classNameRoot={styles.root}
+                onSelect={handleRolesOption}
+            />
             <Button
-                className={styles.button}
-            >
-                Отправить
+                disabled={isLoading}
+                type="submit"
+                className={styles.button}>
+                Добавить
             </Button>
-        </div>
+        </form>
     );
 };

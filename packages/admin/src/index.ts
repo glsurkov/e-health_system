@@ -13,7 +13,7 @@ app.use(express.json());
 
 const caURL = 'https://localhost:7054';
 const tlsCert = fs.readFileSync(
-    'fabric-samples/test-network/organizations/fabric-ca/org1/tls-cert.pem',
+    'fabric-samples/test-network2/organizations/fabric-ca/org1/tls-cert.pem',
 ).toString();
 const ca = new FabricCAServices(caURL, {
     trustedRoots: [tlsCert],

@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 30px;
 }
 
 .dnd {
@@ -12,4 +12,8 @@
 
 .button {
     width: 100%;
+}
+
+.root {
+    height: 40px;
 }

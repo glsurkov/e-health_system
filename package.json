@@ -11,7 +11,6 @@
   },
   "scripts": {
     "pre-commit": "yarn workspaces -A run pre-commit",
-    "prepare": "husky",
     "start:docker": "docker-compose --compatibility -p dpm -f deploy/local/docker-compose.yml up --force-recreate --build -d --renew-anon-volumes",
     "postgen:proto": "yarn build",
     "gen:client:local": "yarn workspace web-client run generate:api:local",
@@ -23,9 +22,17 @@
     "start:client:local": "set API_URL=http://localhost:3001 && yarn workspace web-client dev",
     "build": "yarn workspaces -A run build"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@hyperledger/caliper-cli": "^0.6.0",
+    "@hyperledger/caliper-core": "^0.6.0",
+    "@hyperledger/caliper-fabric": "^0.6.0",
+    "fabric-ca-client": "^2.2.20",
+    "fabric-common": "^2.2.20",
+    "fabric-network": "^2.2.20"
+  },
   "devDependencies": {
     "husky": "^9.1.4",
+    "prettier": "^3.5.3",
     "ts-proto": "^2.2.5"
   },
   "private": true

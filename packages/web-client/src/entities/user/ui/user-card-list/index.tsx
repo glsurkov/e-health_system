@@ -4,7 +4,7 @@ import {UserCardListItem} from "@/entities/user/ui/user-card-list-item";
 import {IUser} from "@/shared/types";
 
 interface UserCardListProps {
-    data: {
+    data?: {
         id: string;
         title: string;
         recordAuthor: IUser;
@@ -13,7 +13,7 @@ interface UserCardListProps {
 }
 
 const UserCardList = (props: UserCardListProps) => {
-    const {data} = props;
+    const {data = []} = props;
 
     return (
         <div className={styles.container}>
